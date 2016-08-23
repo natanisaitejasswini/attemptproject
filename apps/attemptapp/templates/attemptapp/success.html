@@ -2,18 +2,80 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>My Django Page</title>
+    <title>What's Up</title>
     {%load staticfiles%}
-   <link rel="stylesheet" href="{% static 'attemptapp/css/hard.css' %}">  
-   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'attemptapp/css/hard.css' %}">  
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  </head>
   <body>
-  <div>
-      <form action='/logout' method = 'post'>
-        {% csrf_token %}
-         <input type='submit' value='Logout'>
+    <p class='start'><a href='/main'><u>Logout</u></a></p>
+    <h1>Hello, {{request.session.user}}!</h1><br>
+    <h2 class='red'>Here are your appointments for today, {{today}}: </h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tasks</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in today_appt %}
+          <tr>
+            <td>{{task.task}}</td>
+            <td>{{task.time | time:'H:i'}} </td>
+            <td>{{task.status}} </td>
+            {% if task.status == 'pending' or task.status == 'missed' %}
+           <td><a href="/appointments/{{task.id}}">Edit</a> | <a href='/delete/{{task.id}}'>Delete</a></td>
+            {% else %}
+            <td></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        <br>
+      </tbody>
+      <table>
+     <thead>
+     <br>
+    <h2 class ='red'>Your other appointments:</h2><br>
+      <tr>
+        <th>Tasks</th>
+        <th>Date</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for task in future_appt %}
+          <tr>
+          <td>{{task.task}}</a></td>
+          <td>{{task.date | date:'F d'}}</td>
+          <td>{{task.time | time:'H:i'}}</td>
+          </tr>
+        {% endfor %}
+     <table>
+     <thead>
+     <br><br>
+    <h3>Add Appointment</h3><br>
+    <form action='/addappointment' method='post'>
+          {% csrf_token %}
+          Date: <input type='date' name='appdate'><br><br>
+          Time: <input type="time" name="time"><br><br>
+          Task: <input type="text" name="task"><br><br>
+          <input type="submit" value="Add">
     </form>
-    <h1>Welcome user {{request.session.user}}</h1><br>
+    {% if messages %}
+        {% for msg in messages %}
+          {% if 'regtag' in msg.tags %}
+            <p class='green'>{{msg.message}}</p>
+          {% endif %}
+        {% endfor %}
+    {% endif %} 
+  </body>
+</html>
+
+  
   </body>
 </html>
 

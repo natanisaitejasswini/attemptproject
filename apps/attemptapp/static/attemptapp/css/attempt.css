@@ -4,11 +4,11 @@ padding: 0px;
 font-family: sans-serif;
 }
 body{
-border: 3px solid black;
+border: 2px solid black;
 padding-left: 60px;
 }
 .start{
-margin-left: 630px;
+margin-left: 600px;
 padding-top: 20px;
 font-size: 18px;
 }
@@ -35,7 +35,4 @@ background-color: #dddddd;
 }
 .red{
 color: grey;	
-}
-.upper{
-text-transform: uppercase;
 }

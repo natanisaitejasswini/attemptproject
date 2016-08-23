@@ -16,23 +16,18 @@ class UserManager(models.Manager):
 			return(False,"Invalid characters")
 		else:
 			return(True,name)
-	def user_name(self,alias):
-		if not len(alias) > 3:
-			return(False,"Invalid lastname") 
-		else:
-			return(True,alias)
 	def reg_email(self,email):
 		if not Email_REGEX.match(email):
 			return(False,"Invalid email") 
 		else:
 			return(True,email)
 	def password_charcheck(self,password):
-		if not password.isalpha():
+		if not password.isalnum():
 			return(False,"Password should have characters")
 		else:
 			return(True,"password")
 	def password(self,password):
-		if not len(password) > 5:
+		if not len(password) > 7:
 			return(False,"Invalid password") 
 		else:
 				# BCRYPT PASSWORD
@@ -46,27 +41,17 @@ class UserManager(models.Manager):
 			return(True,"password confirmed")
 	def birthday(self,birthday):
 		bday = birthday
-		# Checking empty date field
 		if bday == "":
 			return(False, "Invalid Birthdate")
 		now = datetime.now()
-		print now
-		
-		# comparing datefield with today
 		bday_test = datetime.strptime(birthday, '%Y-%m-%d')
 		if bday_test > now:
 			return(False, "Invalid Birthdate")
 		else:
 			return(True, birthday)
   	def log(self,email,password):
-  		# print email, password
-  		# users = self.all()
-  		# for auser in users:
-  		# 	print auser.email
-  		# print self.filter(email=email)
   		try:
   			user = self.get(email = email)
-  			# print user.password
   		except:
   			return (False, "User Does not Exist")
 		password = password.encode()
@@ -74,13 +59,12 @@ class UserManager(models.Manager):
 		print user_password
 		if user and bcrypt.hashpw(password, user_password) == user_password:
 			print user.name
-			return (True, user.email)
+			return (True, user.name)
 		else:
 			return (False, "Password doesnot match")	
 
 class Userlog(models.Model):
   name = models.CharField(max_length=30)
-  alias= models.CharField(max_length=30)
   email = models.CharField(max_length=30)
   password = models.CharField(max_length=300)
   birthday = models.DateField()

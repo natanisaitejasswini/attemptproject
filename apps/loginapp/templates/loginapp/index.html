@@ -2,21 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>My Django coding Login Page</title>
+    <title>My Login and Registration Page</title>
     {%load staticfiles%}
   <link rel="stylesheet" href="{% static 'loginapp/css/loginreg.css' %}">  
   <body>
-      <h3>Welcome</h3>
+      <h3>Welcome!</h3>
       <h3>Register</h3>
       <form action='/registration' method='post'>
           {% csrf_token %}
-          First Name: <input type='text' name='name'><br><br>
-          Alias: <input type="text" name="alias"><br><br>
+          Name: <input type='text' name='name'><br><br>
           Email: <input type="text" name="email"><br><br>
           Password: <input type="password" name="password"><br><br>
-          <p>*password should be atleast characters</p><br>
+          <p>*password should be atleast 8 characters</p><br>
           Confirm-Password:<input type="password" name="confirm_password"><br><br>
-          Birthday: <input type="date" name="birthday"><br><br>
+          Date of Birth: <input type="date" name="birthday"><br><br>
           <input type="submit" value="submit">
       </form>
       <!-- Regtags -->

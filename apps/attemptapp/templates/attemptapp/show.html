@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Appointment</title>
+   {%load staticfiles%}
+  <link rel="stylesheet" href="{% static 'attemptapp/css/attempt.css' %}">  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+   <p class='start'> <a href='/appointments'><u>Dashboard</u></a> | <a href='/main'><u>Logout</u></a> </p>
+    {% for task in updates%}
+      <form action = '/{{task.id}}' method = 'post'>
+          {% csrf_token %}
+          <p>Tasks:
+          <input type='text' name='task' value='{{task.task}}'></p>
+          <p>Status:
+          <select name='status'>
+              <option value='pending'>pending</option>
+              <option value='done'>done</option>
+              <option value='missed'>missed</option>
+          </select></p>
+          <p>Date:
+            <input type='date' name='appdate' value="{{task.date|date:'Y-m-d'}}">
+          </p>
+          <p>Time:
+            <input type='time' name='time' value="{{task.time|time:'H:i'}}">
+          </p>  
+          <input type='submit' value='Update'>
+      </form>
+      {% endfor %}
+      {% if messages %}
+        {% for msg in messages %}
+          <p class='green'>{{msg.message}}</p>
+        {% endfor %}
+      {% endif %} 
+</body>
+</html>
