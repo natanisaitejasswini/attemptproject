@@ -1,0 +1,40 @@
+*{
+margin: 0px;
+padding: 0px;
+font-family: sans-serif;
+}
+body{
+	border: 1px solid black;
+	height: 1000px;
+	width: 900px;
+	margin-left: 40px;
+	margin-top: 40px
+	padding-left: 20px;
+	padding-top: 20px;
+}
+form{
+padding: 20px;
+margin-left: 40px;
+}
+.mess{
+	color: blue;
+}
+.green{
+color: green;
+}
+h1{
+color: red;
+}
+p{
+padding-bottom: 5px;
+margin-left: 40px;
+}
+div{
+padding-left: 30px;
+}
+input[type=submit]{
+margin-left: 600px;
+}
+h2{
+color: blue;
+}

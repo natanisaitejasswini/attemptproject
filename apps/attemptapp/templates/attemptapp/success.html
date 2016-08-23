@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>My Django Page</title>
+    {%load staticfiles%}
+   <link rel="stylesheet" href="{% static 'attemptapp/css/hard.css' %}">  
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <body>
+  <div>
+      <form action='/logout' method = 'post'>
+        {% csrf_token %}
+         <input type='submit' value='Logout'>
+    </form>
+    <h1>Welcome user {{request.session.user}}</h1><br>
+  </body>
+</html>
+
+  
